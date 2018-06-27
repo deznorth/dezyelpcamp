@@ -16,9 +16,16 @@ var commentRoutes = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes = require("./routes/index");
 
-//production = mongodb://dbu:a159753@ds221271.mlab.com:21271/dezyelpcamp
-//development = mongodb://localhost/yelp_camp
-mongoose.connect("mongodb://dbu:a159753@ds221271.mlab.com:21271/dezyelpcamp");
+//Selects which database to use depending on the NODE_ENV enviroment variable
+if(process.env.NODE_ENV && process.env.NODE_ENV == "production"){
+    //production = mongodb://dbu:a159753@ds221271.mlab.com:21271/dezyelpcamp
+    mongoose.connect("mongodb://dbu:a159753@ds221271.mlab.com:21271/dezyelpcamp");
+} else {
+    //development = mongodb://localhost/yelp_camp
+    mongoose.connect("mongodb://localhost/yelp_camp");
+}
+
+
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -54,14 +61,19 @@ app.use(indexRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentRoutes);
 
-app.listen(process.env.PORT, process.env.IP, function(){
-    console.log("DezYelpCamp app started!");
-});
-
-//local listen
-//app.listen(3000, function(){
-//    console.log("DezYelpCamp app started!");
-//});
+//Selects which mode to listen on [development] or [production]
+if(process.env.NODE_ENV && process.env.NODE_ENV == "production"){
+    //production
+    app.listen(process.env.PORT, process.env.IP, function(){
+        console.log("DezYelpCamp app started! [production]");
+    });
+} else {
+    //dev
+    app.listen(3000, function(){
+        console.log("====  http://localhost:3000  ====");
+        console.log("DezYelpCamp app started! [development]");
+    });
+}
 
 
 
