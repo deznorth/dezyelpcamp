@@ -58,6 +58,11 @@ app.listen(process.env.PORT, process.env.IP, function(){
     console.log("DezYelpCamp app started!");
 });
 
+//local listen
+//app.listen(3000, function(){
+//    console.log("DezYelpCamp app started!");
+//});
+
 
 
 
