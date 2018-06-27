@@ -19,7 +19,7 @@ var commentRoutes = require("./routes/comments"),
 //Selects which database to use depending on the NODE_ENV enviroment variable
 if(process.env.NODE_ENV && process.env.NODE_ENV == "production"){
     //production = mongodb://dbu:a159753@ds221271.mlab.com:21271/dezyelpcamp
-    mongoose.connect("mongodb://dbu:a159753@ds221271.mlab.com:21271/dezyelpcamp");
+    mongoose.connect(process.env.DBURL);
 } else {
     //development = mongodb://localhost/yelp_camp
     mongoose.connect("mongodb://localhost/yelp_camp");
