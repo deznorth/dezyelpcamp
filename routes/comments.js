@@ -27,7 +27,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
             console.log(err);
             //add flash message
             req.flash("error", "Error finding campground!");
-            res.redirect("/app/YelpCamp/campgrounds");
+            res.redirect("/campgrounds");
         } else {
             //create new comment
             Comment.create(req.body.comment, function(err, comment){
@@ -36,7 +36,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                     //add flash message
                     req.flash("error", "Error creating comment!");
                     //redirect to campground show page
-                    res.redirect("/app/YelpCamp/campgrounds/"+ campground._id);
+                    res.redirect("/campgrounds/"+ campground._id);
                 } else {
                     //add username and id to comment
                     comment.author.id = req.user._id;
@@ -46,7 +46,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
                     campground.comments.push(comment);
                     campground.save();
                     //redirect to campground show page
-                    res.redirect("/app/YelpCamp/campgrounds/"+ campground._id);
+                    res.redirect("/campgrounds/"+ campground._id);
                 }
             });
         }
@@ -77,7 +77,7 @@ router.put("/:comment_id", middleware.isAuthorizedComment, function(req, res){
         if(err){
             res.redirect("back");
         } else {
-            res.redirect("/app/YelpCamp/campgrounds/"+req.params.id);
+            res.redirect("/campgrounds/"+req.params.id);
         }
     })
 });
@@ -92,7 +92,7 @@ router.delete("/:comment_id", middleware.isAuthorizedComment, function(req,res){
         } else {
             //add flash message
             req.flash("success", "Comment deleted");
-            res.redirect("/app/YelpCamp/campgrounds/"+req.params.id);
+            res.redirect("/campgrounds/"+req.params.id);
         }
     });
 });

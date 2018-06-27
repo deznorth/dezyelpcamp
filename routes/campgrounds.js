@@ -52,7 +52,7 @@ router.post('/', middleware.isLoggedIn, function(req, res){
            console.log(err);
         } else {
             //redirect back to campgrounds page
-            res.redirect("/app/YelpCamp/campgrounds");
+            res.redirect("/campgrounds");
         }
     });
 });
@@ -68,9 +68,9 @@ router.get("/:id/edit", middleware.isAuthorizedCampground, function(req, res){
 router.put("/:id", middleware.isAuthorizedCampground, function(req, res){
     Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
         if(err){
-            res.redirect("/app/YelpCamp/campgrounds");   
+            res.redirect("/campgrounds");   
         } else {
-            res.redirect("/app/YelpCamp/campgrounds/" + req.params.id);
+            res.redirect("/campgrounds/" + req.params.id);
         }
     });
 });
@@ -79,9 +79,9 @@ router.put("/:id", middleware.isAuthorizedCampground, function(req, res){
 router.delete("/:id", middleware.isAuthorizedCampground, function(req, res){
     Campground.findByIdAndRemove(req.params.id, function(err){
         if(err){
-            res.redirect("/app/YelpCamp/campgrounds");
+            res.redirect("/campgrounds");
         } else {
-            res.redirect("/app/YelpCamp/campgrounds");
+            res.redirect("/campgrounds");
         }
     })
 });

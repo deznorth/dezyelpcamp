@@ -27,12 +27,12 @@ router.post("/register", function(req,res){
         if(err){
             //add flash message
             req.flash("error", err.message);
-            return res.redirect("/app/YelpCamp/register");
+            return res.redirect("/register");
         }
         passport.authenticate("local")(req,res,function(){
             //add flash message
             req.flash("success", "Successfuly registered!");
-            res.redirect("/app/YelpCamp/campgrounds");
+            res.redirect("/campgrounds");
         });
     });
 });
@@ -52,8 +52,8 @@ router.get("/login", function(req,res){
 
 //CREATE -- Handles creation of a new user in the db
 router.post("/login", passport.authenticate("local", {
-    successRedirect:"/app/YelpCamp/campgrounds",
-    failureRedirect:"/app/YelpCamp/login"
+    successRedirect:"/campgrounds",
+    failureRedirect:"/login"
 }), function(req,res){
     
 });
